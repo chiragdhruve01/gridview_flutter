@@ -61,10 +61,21 @@ class _WelcomePageState extends State<WelcomePage> {
                               decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(100)),
-                              child: const Icon(
-                                Icons.play_arrow,
-                                color: Colors.white,
+                              child: SizedBox(
+                                height: 30.0,
+                                width: 30.0,
+                                child: IconButton(
+                                  padding: new EdgeInsets.all(0.0),
+                                  onPressed: () {
+                                    print("yeeehhh clicked");
+                                  },
+                                  icon: Icon(Icons.play_arrow, size: 25,color: Colors.white,),
+                                ),
                               ),
+                              // child: const Icon(
+                              //   Icons.play_arrow,
+                              //   color: Colors.white,
+                              // ),
                             ),
                           ),
                         ),
