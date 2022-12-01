@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:item/screens/grid_color.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -67,9 +68,17 @@ class _WelcomePageState extends State<WelcomePage> {
                                 child: IconButton(
                                   padding: new EdgeInsets.all(0.0),
                                   onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => GridColor()));
                                     print("yeeehhh clicked");
                                   },
-                                  icon: Icon(Icons.play_arrow, size: 25,color: Colors.white,),
+                                  icon: Icon(
+                                    Icons.play_arrow,
+                                    size: 25,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                               // child: const Icon(
