@@ -15,4 +15,4 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 <img src="https://www.shutterstock.com/image-photo/butterfly-grass-on-meadow-night-260nw-1111729556.jpg" width="128"/>
-![Screenshot](C:\gatewaymd\oldgateway\sms\assets\logo\two.jpg)
+![Optional Text](./assets//icon//icon.jpg)
