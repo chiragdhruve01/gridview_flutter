@@ -69,6 +69,21 @@ class AuthService {
     }
   }
 
+  Future<List> getCountryDetails(String token) async {
+    try {
+      var res = await get(
+          Uri.parse('${constants.url}${constants.companyDetail}$token'));
+      if (res.statusCode == 200) {
+        var data = jsonDecode(res.body);
+        return data['company'];
+      } else {
+        return Future.error("server error");
+      }
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
   Future<List> getUsers() async {
     try {
       var response = await get(Uri.parse('${liveUrl}'));

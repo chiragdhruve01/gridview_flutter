@@ -94,7 +94,9 @@ class _SubListPageState extends State<SubListPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          BankingInvoiceDetail()),
+                                          BankingInvoiceDetail(snapshot.data![i]
+                                                  ['id']
+                                              .toString())),
                                 );
                               },
                               icon: const Icon(

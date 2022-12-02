@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:item/service/auth_service.dart';
+import 'package:item/utils/constants.dart' as constants;
 
 class BankingInvoiceDetail extends StatefulWidget {
   static var tag = "/BankingInvoiceDetail";
+  BankingInvoiceDetail(this.id, {super.key});
+  final dynamic id;
 
   @override
   _BankingInvoiceDetailState createState() => _BankingInvoiceDetailState();
 }
 
 class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
+  final AuthService authService = AuthService();
+  List<dynamic>? messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getPrefs();
+  }
+
+  Future<void> getPrefs() async {
+    messages = await authService.getCountryDetails(widget.id);
+    setState(() => {messages});
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -18,7 +36,7 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
         title: Container(
           margin: const EdgeInsets.only(left: 80.0),
           child: const Text(
-            'Details',
+            'Info',
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -30,121 +48,47 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 16.0),
-            Container(
+            const SizedBox(height: 16.0),
+            Center(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const <Widget>[
-                      Icon(
-                        Icons.chevron_left,
-                        size: 25,
-                        color: Colors.orange,
-                      )
-                    ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    height: 250,
+                    width: 250,
+                    child: messages![0]['image'] != null
+                        ? Image(
+                            image: NetworkImage(
+                              constants.url + messages![0]['image'],
+                            ),
+                          )
+                        : const Image(
+                            image: AssetImage('assets/logo/icon.png'),
+                          ),
                   ),
-                  const Text(
-                    "Alerts",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.orange),
-                  ),
+                  Text(messages![0]['name'],
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.orange)),
                 ],
               ),
             ),
-            const Text(
-              "",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: Colors.orange),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              "Invoice Mar 2020",
-            ),
+            const Divider(thickness: 0, color: Colors.white),
             Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("Name",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            color: Colors.pink)),
-                    Text("chirag", style: TextStyle()),
-                  ],
-                ),
-                Divider(thickness: 0, color: Colors.white),
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                    const SizedBox(height: 16.0),
                     Text(
-                      "Address",
-                    ),
-                    Text(
-                      "874 Cameron Road,NY,US",
+                      messages![0]['description'],
                     ),
                   ],
                 ),
-                Divider(thickness: 0, color: Colors.white),
               ],
             ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Code",
-                    ),
-                    Text(
-                      "#7783",
-                    ),
-                  ],
-                ),
-                Divider(thickness: 0, color: Colors.white),
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "TimeService",
-                    ),
-                    Text(
-                      "25 Mar - 25 Mar",
-                    ),
-                  ],
-                ),
-                Divider(thickness: 0, color: Colors.white),
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Readings", style: TextStyle(color: Colors.pink)),
-                    Text(
-                      "\120/140",
-                    ),
-                  ],
-                ),
-                Divider(thickness: 0, color: Colors.white),
-              ],
-            ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 26.0),
             GestureDetector(
               onTap: () {},
               child: Container(
@@ -155,7 +99,7 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
                   'submit',
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.pink,
+                  color: Color.fromARGB(255, 26, 226, 129),
                   boxShadow: [BoxShadow(color: Colors.transparent)],
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.all(Radius.circular(2.0)),
