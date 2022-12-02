@@ -41,31 +41,63 @@ class _SubListPageState extends State<SubListPage> {
                 var date = DateTime.parse(snapshot.data![i]['created_at']);
                 var formattedDate = DateFormat('E MMM yyyy').format(date);
                 return Card(
-                  child: ListTile(
-                      tileColor: const Color.fromARGB(255, 230, 255, 201),
-                      title: Text(
-                        snapshot.data![i]['name'],
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  shadowColor: Colors.yellow,
+                  child: Column(
+                    children: [
+                      Container(
+                        color: const Color.fromARGB(255, 229, 240, 130),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              snapshot.data![i]['name'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.orange),
+                            ),
+                          ],
+                        ),
                       ),
-                      subtitle: Text(
-                        formattedDate,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            // backgroundColor: Colors.orange,
-                            color: Colors.orange),
-                      ),
-                      trailing: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: snapshot.data![i]['image'] != null
-                            ? Image(
-                                image: NetworkImage(
-                                  constants.url + snapshot.data![i]['image'],
-                                ),
-                              )
-                            : const Image(
-                                image: AssetImage('assets/logo/icon.png'),
-                              ),
-                      )),
+                      // const SizedBox(height: 15.0),
+                      ListTile(
+                          tileColor: const Color.fromARGB(255, 230, 255, 201),
+                          title: Text(
+                            snapshot.data![i]['name'],
+                          ),
+                          subtitle: Text(
+                            formattedDate,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                // backgroundColor: Colors.orange,
+                                color: Colors.orange),
+                          ),
+                          trailing: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: snapshot.data![i]['image'] != null
+                                ? Image(
+                                    image: NetworkImage(
+                                      constants.url +
+                                          snapshot.data![i]['image'],
+                                    ),
+                                  )
+                                : const Image(
+                                    image: AssetImage('assets/logo/icon.png'),
+                                  ),
+                          )),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //   children: [
+                      //     Text(snapshot.data![i]['name']),
+                      //     Text(formattedDate),
+                      //   ],
+                      // ),
+                    ],
+                  ),
                 );
               },
             );
