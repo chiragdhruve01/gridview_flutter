@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:item/screens/progress.dart';
 import 'package:item/service/auth_service.dart';
 import 'package:item/utils/constants.dart' as constants;
 import 'package:intl/intl.dart';
@@ -23,7 +24,7 @@ class _SubListPageState extends State<SubListPage> {
           margin: const EdgeInsets.only(left: 80.0),
           child: Text(
             widget.title,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.start,
@@ -64,31 +65,47 @@ class _SubListPageState extends State<SubListPage> {
                       ),
                       // const SizedBox(height: 15.0),
                       ListTile(
-                          tileColor: const Color.fromARGB(255, 230, 255, 201),
-                          title: Text(
-                            snapshot.data![i]['name'],
-                          ),
-                          subtitle: Text(
-                            formattedDate,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                // backgroundColor: Colors.orange,
-                                color: Colors.orange),
-                          ),
-                          trailing: SizedBox(
-                            height: 100,
-                            width: 100,
-                            child: snapshot.data![i]['image'] != null
-                                ? Image(
-                                    image: NetworkImage(
-                                      constants.url +
-                                          snapshot.data![i]['image'],
-                                    ),
-                                  )
-                                : const Image(
-                                    image: AssetImage('assets/logo/icon.png'),
-                                  ),
-                          )),
+                        leading: snapshot.data![i]['image'] != null
+                            ? Image(
+                                image: NetworkImage(
+                                  constants.url + snapshot.data![i]['image'],
+                                ),
+                              )
+                            : const Image(
+                                image: AssetImage('assets/logo/icon.png'),
+                              ),
+                        tileColor: const Color.fromARGB(255, 230, 255, 201),
+                        title: Text(
+                          snapshot.data![i]['name'],
+                        ),
+                        subtitle: Text(
+                          formattedDate,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.orange),
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              padding: const EdgeInsets.all(0),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BankingInvoiceDetail()),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.forward_sharp,
+                                color: Colors.orange,
+                                size: 18.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       // Row(
                       //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       //   children: [
