@@ -39,7 +39,7 @@ class _SubListPageState extends State<SubListPage> {
               itemCount: snapshot.data?.length,
               itemBuilder: (context, i) {
                 var date = DateTime.parse(snapshot.data![i]['created_at']);
-                var formattedDate = DateFormat('E d MMM yyyy').format(date);
+                var formattedDate = DateFormat('E MMM yyyy').format(date);
                 return Card(
                   child: ListTile(
                       tileColor: const Color.fromARGB(255, 230, 255, 201),
@@ -49,8 +49,9 @@ class _SubListPageState extends State<SubListPage> {
                       subtitle: Text(
                         formattedDate,
                         style: const TextStyle(
-                            backgroundColor: Colors.orange,
-                            color: Colors.white),
+                            fontWeight: FontWeight.bold,
+                            // backgroundColor: Colors.orange,
+                            color: Colors.orange),
                       ),
                       trailing: SizedBox(
                         height: 100,

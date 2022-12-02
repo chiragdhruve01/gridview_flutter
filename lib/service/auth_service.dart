@@ -56,10 +56,10 @@ class AuthService {
 
   Future<List> getCountryList(String token) async {
     try {
-      var res =await get(Uri.parse('${constants.url}${constants.companylist}'));
+      var res =
+          await get(Uri.parse('${constants.url}${constants.companylist}'));
       if (res.statusCode == 200) {
         var data = jsonDecode(res.body);
-        print("data" + data.toString());
         return data['serializer'];
       } else {
         return Future.error("server error");
