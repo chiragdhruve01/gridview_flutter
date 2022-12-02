@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:item/screens/grid_color.dart';
+import 'package:flutter/foundation.dart' show TargetPlatform;
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -169,11 +170,14 @@ class _WelcomePageState extends State<WelcomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(
-            width: 220,
-            height: 200,
+            height: Theme.of(context).platform == TargetPlatform.android
+                ? 200
+                : 510,
             child: Image.network(
               '$path',
-              fit: BoxFit.cover,
+              fit: Theme.of(context).platform == TargetPlatform.android
+                  ? BoxFit.cover
+                  : BoxFit.fill,
             ),
           ),
         ],
