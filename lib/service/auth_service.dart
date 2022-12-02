@@ -1,6 +1,7 @@
 import 'package:http/http.dart';
 // import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:item/utils/constants.dart' as constants;
 
 class Album {
   final String firstName;
@@ -26,12 +27,12 @@ class Album {
 }
 
 class AuthService {
-  var baseUrl = "http://172.31.199.45:8000/";
-  var avdbaseUrl = "http://10.0.2.2:8000/";
+  // var baseUrl = "http://172.31.199.45:8000/";
+  // var avdbaseUrl = "http://10.0.2.2:8000/";
   var liveUrl = "";
 
   Future<Response> login(String username, String password) async {
-    var res = await post(Uri.parse('${baseUrl}user/userlogin'),
+    var res = await post(Uri.parse('${constants.url}user/userlogin'),
         body: {"email": username, "password": password});
     return res;
   }
@@ -39,7 +40,7 @@ class AuthService {
   Future<Album> getLoggedInUser(String token) async {
     try {
       if (token != "") {
-        var res = await get(Uri.parse('${avdbaseUrl}accTokengwm/$token'));
+        var res = await get(Uri.parse('${constants.url}accTokengwm/$token'));
         if (res.statusCode == 200) {
           return Album.fromJson(jsonDecode(res.body));
         } else {
@@ -53,11 +54,13 @@ class AuthService {
     }
   }
 
-  Future<List> getUserRoomChats(String token) async {
+  Future<List> getCountryList(String token) async {
     try {
-      var res = await get(Uri.parse('${avdbaseUrl}accTokengwm/$token'));
+      var res =await get(Uri.parse('${constants.url}${constants.companylist}'));
       if (res.statusCode == 200) {
-        return jsonDecode(res.body);
+        var data = jsonDecode(res.body);
+        print("data" + data.toString());
+        return data['serializer'];
       } else {
         return Future.error("server error");
       }
@@ -81,7 +84,7 @@ class AuthService {
   }
 
   Future register(data) async {
-    var res = await post(Uri.parse('${avdbaseUrl}gwmsignup'), body: data);
+    var res = await post(Uri.parse('${constants.url}gwmsignup'), body: data);
     return res;
   }
 }

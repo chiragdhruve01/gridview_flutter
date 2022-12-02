@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:item/service/auth_service.dart';
+import 'package:item/utils/constants.dart' as constants;
+import 'package:intl/intl.dart';
 
 class SubListPage extends StatefulWidget {
   const SubListPage(this.title, this.travel, {super.key});
 
   final String title;
   final String travel;
-
   @override
   State<SubListPage> createState() => _SubListPageState();
 }
@@ -17,26 +18,36 @@ class _SubListPageState extends State<SubListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        backgroundColor: Colors.green,
+        title: Container(
+          margin: const EdgeInsets.only(left: 80.0),
+          child: Text(
+            widget.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.start,
+          ),
+        ),
       ),
       body: FutureBuilder<List>(
-        future: authService.getUserRoomChats(widget.travel),
+        future: authService.getCountryList(widget.travel),
         builder: (context, snapshot) {
           // print("snapshot ${snapshot}");
           if (snapshot.hasData) {
             return ListView.builder(
               itemCount: snapshot.data?.length,
               itemBuilder: (context, i) {
+                var date = DateTime.parse(snapshot.data![i]['created_at']);
+                var formattedDate = DateFormat('E d MMM yyyy').format(date);
                 return Card(
                   child: ListTile(
-                      tileColor: Colors.grey[300],
+                      tileColor: const Color.fromARGB(255, 230, 255, 201),
                       title: Text(
-                        snapshot.data![i]['firstName'] +
-                            " " +
-                            snapshot.data![i]['lastName'],
+                        snapshot.data![i]['name'],
                       ),
                       subtitle: Text(
-                        snapshot.data![i]['email'],
+                        formattedDate,
                         style: const TextStyle(
                             backgroundColor: Colors.orange,
                             color: Colors.white),
@@ -47,8 +58,7 @@ class _SubListPageState extends State<SubListPage> {
                         child: snapshot.data![i]['image'] != null
                             ? Image(
                                 image: NetworkImage(
-                                  'http://localhost:8000' +
-                                      snapshot.data![i]['image'],
+                                  constants.url + snapshot.data![i]['image'],
                                 ),
                               )
                             : const Image(

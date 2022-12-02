@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:item/screens/grid_color.dart';
 import 'package:flutter/foundation.dart' show TargetPlatform;
+import 'package:item/screens/sublist.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -133,7 +134,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  GridColor()));
+                                                  SubListPage('Categories',_items[index].name)));
                                       print("yeeehhh clicked");
                                     },
                                     icon: Icon(
