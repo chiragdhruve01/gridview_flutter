@@ -84,9 +84,11 @@ class AuthService {
     }
   }
 
-  Future<List> getUsers() async {
+  Future<List> getTravelList() async {
     try {
-      var response = await get(Uri.parse('${liveUrl}'));
+      var response =
+          await get(Uri.parse('${constants.url}${constants.travellist}'));
+
       var data = jsonDecode(response.body);
       if (response.statusCode == 200) {
         return data['serializer'];
