@@ -109,7 +109,9 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
                     //   ),
                     // ),
                     content: Text(
-                      'Booking Confirmed Thank You',
+                      'Booking Confirmed for ' +
+                          (messages![0]['name'] ?? "") +
+                          ',\nThank You ',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 240, 40, 197),
