@@ -95,6 +95,7 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
+                    scrollable : true,
                     backgroundColor: Color.fromARGB(255, 224, 142, 35),
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(25.0),
