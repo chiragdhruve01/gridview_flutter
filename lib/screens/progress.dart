@@ -56,17 +56,18 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
                   SizedBox(
                     height: 250,
                     width: 250,
-                    child: messages![0]['image'] != null
-                        ? Image(
-                            image: NetworkImage(
-                              constants.url + messages![0]['image'],
-                            ),
-                          )
-                        : const Image(
-                            image: AssetImage('assets/logo/icon.png'),
-                          ),
+                    child:
+                        (messages!.isNotEmpty && messages![0]['image'] != null)
+                            ? Image(
+                                image: NetworkImage(
+                                  constants.url + messages![0]['image'],
+                                ),
+                              )
+                            : const Image(
+                                image: AssetImage('assets/logo/city.png'),
+                              ),
                   ),
-                  Text(messages![0]['name'],
+                  Text(messages!.isNotEmpty ? messages![0]['name'] : "",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
@@ -82,7 +83,7 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
                   children: [
                     const SizedBox(height: 16.0),
                     Text(
-                      messages![0]['description'],
+                      messages!.isNotEmpty ? messages![0]['description'] : "",
                     ),
                   ],
                 ),

@@ -72,7 +72,7 @@ class _SubListPageState extends State<SubListPage> {
                                 ),
                               )
                             : const Image(
-                                image: AssetImage('assets/logo/icon.png'),
+                                image: AssetImage('assets/logo/city.png'),
                               ),
                         tileColor: const Color.fromARGB(255, 230, 255, 201),
                         title: Text(
