@@ -67,99 +67,135 @@ class _WelcomePageState extends State<WelcomePage> {
   // This widget is the root of your application
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 230, 255, 201),
-        appBar: AppBar(
-          leading: const Icon(Icons.stadium),
-          backgroundColor: Colors.green,
-          title: Container(
-            margin: const EdgeInsets.only(left: 80.0),
-            child: const Text(
-              'Welcome',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+    Future<bool> showExitPopup() async {
+      return await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: Colors.blue[900],
+              title: Text(
+                'Exit App',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-              textAlign: TextAlign.start,
+              content: Text(
+                'Do you want to exit an App?',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('No'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Yes'),
+                ),
+              ],
+            ),
+          ) ??
+          false;
+    }
+
+    return MaterialApp(
+      home: WillPopScope(
+        onWillPop: showExitPopup,
+        child: Scaffold(
+          backgroundColor: const Color.fromARGB(255, 230, 255, 201),
+          appBar: AppBar(
+            leading: const Icon(Icons.stadium),
+            backgroundColor: Colors.green,
+            title: Container(
+              margin: const EdgeInsets.only(left: 80.0),
+              child: const Text(
+                'Welcome',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.start,
+              ),
             ),
           ),
-        ),
-        body: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0,
-              crossAxisCount: 3,
-            ),
-            itemCount: _items.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: GestureDetector(
-                  onTap: () async {
-                    await showDialog(
-                      context: context,
-                      builder: (_) =>
-                          imageDialog('My Image', _items[index].image, context),
-                    );
-                  },
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(_items[index].image),
-                                fit: BoxFit.cover,
+          body: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0,
+                crossAxisCount: 3,
+              ),
+              itemCount: _items.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: GestureDetector(
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (_) => imageDialog(
+                            'My Image', _items[index].image, context),
+                      );
+                    },
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(_items[index].image),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20.0),
+                                ),
                               ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20.0),
-                              ),
-                            ),
-                            child: Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                margin: const EdgeInsets.all(5),
-                                //padding: const EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius: BorderRadius.circular(100)),
-                                child: SizedBox(
-                                  height: 30.0,
-                                  width: 30.0,
-                                  child: IconButton(
-                                    padding: new EdgeInsets.all(0.0),
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SubListPage('Categories',_items[index].name)));
-                                      print("yeeehhh clicked");
-                                    },
-                                    icon: Icon(
-                                      Icons.play_arrow,
-                                      size: 25,
-                                      color: Colors.white,
+                              child: Align(
+                                alignment: Alignment.bottomRight,
+                                child: Container(
+                                  margin: const EdgeInsets.all(5),
+                                  //padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Theme.of(context).primaryColor,
+                                      borderRadius: BorderRadius.circular(100)),
+                                  child: SizedBox(
+                                    height: 30.0,
+                                    width: 30.0,
+                                    child: IconButton(
+                                      padding: new EdgeInsets.all(0.0),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SubListPage('Categories',
+                                                        _items[index].name)));
+                                        print("yeeehhh clicked");
+                                      },
+                                      icon: Icon(
+                                        Icons.play_arrow,
+                                        size: 25,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Center(
-                            child: Text(
-                          _items[index].name,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ))
-                      ]),
-                ),
-              );
-            }),
+                          Center(
+                              child: Text(
+                            _items[index].name,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ))
+                        ]),
+                  ),
+                );
+              }),
+        ),
       ),
     );
   }

@@ -91,13 +91,53 @@ class _BankingInvoiceDetailState extends State<BankingInvoiceDetail> {
             ),
             const SizedBox(height: 26.0),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    backgroundColor: Color.fromARGB(255, 224, 142, 35),
+                    shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(25.0),
+                    ),
+                    icon: const Image(
+                      image: AssetImage('assets/logo/city.png'),
+                    ),
+                    // title: Text(
+                    //   'Booking Confirmed Thank You',
+                    //   style: TextStyle(
+                    //     color: Color.fromARGB(255, 40, 240, 223),
+                    //   ),
+                    // ),
+                    content: Text(
+                      'Booking Confirmed Thank You',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 240, 40, 197),
+                      ),
+                    ),
+                    // actions: [
+                    //   ElevatedButton(
+                    //     onPressed: () => Navigator.of(context).pop(false),
+                    //     child: Text('No'),
+                    //   ),
+                    //   ElevatedButton(
+                    //     onPressed: () => Navigator.of(context).pop(true),
+                    //     child: Text('Yes'),
+                    //   ),
+                    //   ElevatedButton(
+                    //     onPressed: () => Navigator.of(context).pop(true),
+                    //     child: Text('okay'),
+                    //   ),
+                    // ],
+                  ),
+                );
+              },
               child: Container(
                 height: 50.0,
                 padding: EdgeInsets.fromLTRB(16, 4, 16, 4),
                 alignment: Alignment.center,
                 child: Text(
-                  'submit',
+                  'Confirm',
                 ),
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 26, 226, 129),
